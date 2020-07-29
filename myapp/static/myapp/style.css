@@ -22,4 +22,8 @@ margin: 15px;
 a{
     text-decoration: underline !important;
     color: black !important;
+    background: white !important;
+}
+.error{
+    color: red;
 }

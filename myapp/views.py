@@ -7,9 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from .forms import OrderForm, InterestForm, RegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import logging
 
-logger = logging.getLogger(__name__)
 # Create your views here.
 def index(request):
     top_list = Topic.objects.all().order_by('id')[:10]
@@ -78,13 +76,6 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        request.session.set_test_cookie()
-        if request.session.test_cookie_worked():
-            request.session.delete_test_cookie()
-            logger.error("Cookie works!")
-        else:
-            logger.error("Please enable cookies and try again.")
-
         if user:
             if user.is_active:
                 login(request, user)
@@ -124,8 +115,9 @@ def register(request):
             top_list = Topic.objects.all().order_by('id')[:10]
             return render(request, 'myapp/index.html', {'top_list': top_list, 'msg': msg})
         else:
-            msg = 'Student registration failed'
-            return render(request, 'myapp/register.html', {'msg': msg})
+            msg = 'Student registration failed. Please provide valid data!'
+            form = RegisterForm()
+            return render(request, 'myapp/register.html', {'msg': msg, 'form': form})
     else:
         form = RegisterForm()
         return render(request, 'myapp/register.html', {'form': form})

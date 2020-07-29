@@ -25,6 +25,7 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = {'username', 'password', 'first_name', 'last_name', 'city', 'interested_in'}
+        field_order = ['username', 'password', 'first_name', 'last_name', 'city', 'interested_in']
         widgets = {
             'city': forms.RadioSelect(attrs={'class': 'radio'}),
             'password': forms.PasswordInput

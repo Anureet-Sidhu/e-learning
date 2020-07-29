@@ -24,6 +24,7 @@ Learning site</a></li>
          <li class="hbar1"><a href = "{% url 'myapp:myaccount' %}">Click here to view your account</a></li>
      <li class="hbar1"><a href = "{% url 'myapp:login' %}">Logout</a></li>
         {% else %}
+        <li class="hbar1"><a href = "{% url 'myapp:register' %}">Register here</a></li>
         <li class="hbar1"><a href = "{% url 'myapp:login' %}">Login</a></li>
     {% endif %}
             </ul>
