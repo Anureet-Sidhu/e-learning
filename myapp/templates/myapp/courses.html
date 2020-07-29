@@ -1,0 +1,18 @@
+{% extends 'myapp/base.html'  %}
+{% block title %}
+    Courses!
+{% endblock %}
+{% block body_block %}
+    {% if courlist %}
+<h2>List of Courses and their Prices</h2>
+    <ol>
+{% for course in courlist %}
+    <li><a href="{% url 'myapp:course_detail' course.id %}">{{ course.name }}</a> <span>: ${{ course.price }}</span></li>
+        {% endfor %}
+    </ol>
+ {% else %}
+<strong>There are no available courses!</strong>
+{% endif %}
+    <a href="{% url 'myapp:place_order' %}">Click here to place order</a>
+
+{% endblock %}

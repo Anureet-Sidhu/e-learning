@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css'%}" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<title>E-Learning WebApp - {% block title %}Welcome!{% endblock %}</title>
+    </head>
+    <body class="background">
+<div>
+<h1>{% block myhdg %}Hello {{ request.user.first_name }} {% endblock %}</h1>
+    {% block body_block %}*** {% endblock %}
+        </div>
+        <hr />
+        <div>
+<ul>
+<li class="hbar1"><a href="{% url 'myapp:about' %}">Find out about our E-
+Learning site</a></li>
+<li class="hbar1"><a href = "{% url 'myapp:index' %}">Click here to
+   return to main page</a></li>
+    <li class="hbar1"><a href = "{% url 'myapp:courses' %}">Click here to
+   view courses</a></li>
+    {% if request.user.username %}
+         <li class="hbar1"><a href = "{% url 'myapp:myaccount' %}">Click here to view your account</a></li>
+     <li class="hbar1"><a href = "{% url 'myapp:login' %}">Logout</a></li>
+        {% else %}
+        <li class="hbar1"><a href = "{% url 'myapp:login' %}">Login</a></li>
+    {% endif %}
+            </ul>
+        </div>
+    </body>
+</html>

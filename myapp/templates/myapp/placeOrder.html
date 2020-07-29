@@ -1,0 +1,27 @@
+{% extends 'myapp/base.html'  %}
+{% block title %}
+    Order!
+{% endblock %}
+{% block body_block %}
+    {% if courlist %}
+<h2>List of Courses</h2>
+    <ol>
+{% for course in courlist %}
+    <li>{{ course.name }}</li>
+        {% endfor %}
+    </ol>
+ {% else %}
+<strong>There are no available courses!</strong>
+{% endif %}
+    <div class="row">
+        <div class="col-md-1"></div>
+<form method="post">
+  {% csrf_token %}
+  <table border="1">
+    {{ form }}
+  </table>
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+{% endblock %}
