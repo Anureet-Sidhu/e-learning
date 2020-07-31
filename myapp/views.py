@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from .forms import OrderForm, InterestForm, RegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import datetime
 
 # Create your views here.
 def index(request):
@@ -14,7 +15,15 @@ def index(request):
     return render(request, 'myapp/index.html', {'top_list': top_list})
 
 def about(request):
-    return render(request, 'myapp/about.html')
+    if request.COOKIES.get('about_visits'):
+        num = int(request.COOKIES.get('about_visits')) + 1
+        response = render(request, 'myapp/about.html', {'visits': num})
+        response.set_cookie('about_visits', num, expires=300)
+    else:
+        num = 1
+        response = render(request, 'myapp/about.html', {'visits': num})
+        response.set_cookie('about_visits', num, expires=300)
+    return response
 
 def detail(request, top_id):
     topic = get_object_or_404(Topic, pk=top_id)
@@ -24,6 +33,10 @@ def detail(request, top_id):
     return render(request, 'myapp/detail.html', {'course_list': course_list, 'category': category, 'name': name})
 
 def courses(request):
+    request.session.set_test_cookie()
+    if request.session.test_cookie_worked():
+        print("The test cookie worked!!")
+        request.session.delete_test_cookie()
     courlist = Course.objects.all().order_by('id')
     return render(request, 'myapp/courses.html', {'courlist': courlist})
 
@@ -79,6 +92,9 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                now = datetime.datetime.now()
+                request.session['last_login'] = now.strftime("%m/%d/%Y, %H:%M:%S")
+                request.session.set_expiry(3600)
                 return HttpResponseRedirect(reverse('myapp:index'))
             else:
                 return HttpResponse('Your account is disabled.')
@@ -90,7 +106,7 @@ def user_login(request):
 
 @login_required
 def user_logout(request):
-    logout(request)
+    request.session.set_expiry()
     return HttpResponseRedirect(reverse(('myapp:index')))
 
 @login_required

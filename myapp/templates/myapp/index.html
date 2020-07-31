@@ -11,5 +11,9 @@
  {% else %}
 <strong>There are no available topics!</strong>
 {% endif %}
-
+ {% if request.session.last_login %}
+     <p> Last logged in at : {{ request.session.last_login}}</p>
+      {% else %}
+     <p> Your last login was more than an hour ago!</p>
+    {% endif %}
 {% endblock %}
