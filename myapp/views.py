@@ -116,7 +116,7 @@ def myaccount(request):
         student_obj = Student.objects.get(pk=current_user.id)
         order_obj = Order.objects.filter(student=student_obj)
         interested_obj = Topic.objects.filter(id__in=(Student.objects.values_list('interested_in', flat=True).
-                                                      filter(first_name=student_obj.id)))
+                                                      filter(username=student_obj.username)))
         return render(request, 'myapp/myaccount.html', {'student_obj': student_obj, 'order_obj': order_obj,
                                                         'interested_obj': interested_obj})
     else:
@@ -124,7 +124,7 @@ def myaccount(request):
 
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             msg = 'Student has been registered successfully'

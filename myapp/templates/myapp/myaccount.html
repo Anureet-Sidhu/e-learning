@@ -34,5 +34,14 @@
 <strong>You are not a registered student!</strong>
 {% endif %}
 </div>
+<div class="col-md-4">
+{% if student_obj %}
+    {% if student_obj.image %}
+       <img src="{{ student_obj.image.url }}" class="photo">
+     {% else %}
+        <p><b>No image uploaded!</b></p>
+    {% endif %}
+  {% endif %}
+</div>
 </div>
 {% endblock %}

@@ -34,6 +34,7 @@ class Student(User):
     school = models.CharField(max_length=50, null=True, blank=True)
     city = models.CharField(max_length=2, choices=CITY_CHOICES, default='WS')
     interested_in = models.ManyToManyField(Topic)
+    image = models.ImageField(upload_to='media', blank=True)
 
     def __str__(self): return str(self.username)
 

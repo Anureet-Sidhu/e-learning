@@ -8,7 +8,7 @@
             <div class="col-md-4">
                 <h1>Register New Student:</h1>
                 <p class="error">{{ msg }}</p>
-<form method="post">
+<form method="post" enctype='multipart/form-data'>
   {% csrf_token %}
   <table border="1">
     {{ form }}
