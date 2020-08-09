@@ -88,6 +88,7 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        print('Printing....  '+request.GET.get('next',''))
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
@@ -95,6 +96,9 @@ def user_login(request):
                 now = datetime.datetime.now()
                 request.session['last_login'] = now.strftime("%m/%d/%Y, %H:%M:%S")
                 request.session.set_expiry(3600)
+                if request.GET.get('next', ''):
+                    print('If executed..')
+                    return HttpResponseRedirect(request.GET['next'])
                 return HttpResponseRedirect(reverse('myapp:index'))
             else:
                 return HttpResponse('Your account is disabled.')
@@ -109,7 +113,7 @@ def user_logout(request):
     request.session.set_expiry()
     return HttpResponseRedirect(reverse(('myapp:index')))
 
-@login_required
+@login_required(login_url = '/myapp/login')
 def myaccount(request):
     current_user = request.user
     if Student.objects.filter(pk=current_user.id).exists():
