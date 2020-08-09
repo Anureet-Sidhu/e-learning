@@ -38,15 +38,15 @@ class TopicAdmin(admin.ModelAdmin):
     search_fields = ('name__startswith',)
 
 
-def upper_case_student_name(obj):
+def capitalise_student_name(obj):
     return ("%s" % obj.student.first_name).capitalize()
 
 
-upper_case_student_name.short_description = 'Order By'
+capitalise_student_name.short_description = 'Order By'
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('course', upper_case_student_name, 'order_status', 'levels')
+    list_display = ('course', capitalise_student_name, 'order_status', 'levels')
     list_filter = ('order_status', 'levels', 'order_date')
     search_fields = ('student__first_name__startswith',)
     actions = ['cancel_order', 'confirm_order', 'add_level']
