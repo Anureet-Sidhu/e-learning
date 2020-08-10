@@ -3,8 +3,11 @@
     Order!
 {% endblock %}
 {% block body_block %}
-<div id="content-container" class="container p-none">
-    <div class="lgn-container col-lg-8">
+<div id="content-container" class="row p-none">
+<div class="col-md-3 login">
+     <img src="../static/myapp/login-icon.png" class="loginIcon">
+</div>
+    <div class="col-md-4 login">
         <form id="login-form" method="post">
             {% csrf_token %}
             <table class="table">
@@ -30,5 +33,42 @@
                    class="btn btn-primary" /> </div>
         </form>
     </div>
+<div class="col-md-1"></div>
+      <div class="carouselContainer col-md-4">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <img src="../static/myapp/Login 3.png" alt="Commit to be fit" style="width:150%; height: 20%;">
+          </div>
+
+          <div class="item">
+            <img src="../static/myapp/Login.png" alt="Ans you are halfway there" style="width:150%; height: 20%;">
+          </div>
+
+          <div class="item">
+            <img src="../static/myapp/Login 2.png" alt="You can do it!" style="width:150%; height: 20%;">
+          </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
 </div>
+
 {% endblock %}

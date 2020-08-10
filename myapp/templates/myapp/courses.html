@@ -3,16 +3,40 @@
     Courses!
 {% endblock %}
 {% block body_block %}
+    <div class="row">
+    <div class="col-md-3">
+        <img src="../static/myapp/course.png" class="loginIcon topicIcon courseIcon">
+        <a href="{% url 'myapp:place_order' %}" class="orderLink">Click here to place order</a>
+    </div>
+   <div class="col-md-6">
     {% if courlist %}
-<h2>List of Courses and their Prices</h2>
-    <ol>
+<h2 class="centerText">List of Courses and their Prices</h2>
+    <ol class="list-group list-group-flush centerText">
+    <div class="row">
 {% for course in courlist %}
-    <li><a href="{% url 'myapp:course_detail' course.id %}">{{ course.name }}</a> <span>: ${{ course.price }}</span></li>
+    {% if course.id|divisibleby:"2" %}
+        <div class="col-md-6">
+         <li class="list-group-item">
+        <a href="{% url 'myapp:course_detail' course.id %}">{{ course.name }}</a> <span>: ${{ course.price }}</span>
+    </li>
+        </div>
+         {% else %}
+        <div class="col-md-6">
+         <li class="list-group-item">
+        <a href="{% url 'myapp:course_detail' course.id %}">{{ course.name }}</a> <span>: ${{ course.price }}</span>
+    </li>
+        </div>
+    {% endif %}
+
+
         {% endfor %}
+        </div>
     </ol>
  {% else %}
 <strong>There are no available courses!</strong>
 {% endif %}
-    <a href="{% url 'myapp:place_order' %}">Click here to place order</a>
 
+   </div>
+
+    </div>
 {% endblock %}
