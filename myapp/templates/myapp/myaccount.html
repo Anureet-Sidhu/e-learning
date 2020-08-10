@@ -4,42 +4,55 @@
 {% endblock %}
 {% block body_block %}
 <div class="row">
-<div class="col-md-4"></div>
+<div class="col-md-3">
+    <img src="/static/myapp/hat.png" class="loginIcon topicIcon courseIcon">
+</div>
 <div class="col-md-4">
 {% if student_obj %}
-    <p><b>First name: </b>{{ student_obj.first_name }}</p>
-    <p> <b>Last name: </b>{{ student_obj.last_name }}</p>
+       <h2 class="centerText">Details</h2>
+    <ul class="list-group list-group-flush centerText">
+    <li class="list-group-item"><b>First name: </b>{{ student_obj.first_name }}</li>
+    <li class="list-group-item"> <b>Last name: </b>{{ student_obj.last_name }}</li>
+
     {% if order_obj %}
+         <li class="list-group-item">
         <p><b>List of courses ordered:</b></p>
         <ul>
             {% for order in order_obj %}
                 <li>{{ order }}</li>
             {% endfor %}
         </ul>
+            </li>
+
     {% else %}
-        <p><b>No courses ordered!</b></p>
+        <li class="list-group-item"><b>No courses ordered!</b></li>
     {% endif %}
 
     {% if interested_obj %}
+         <li class="list-group-item">
         <p><b>List of Topics interested in:</b></p>
         <ul>
             {% for topic in interested_obj %}
                 <li>{{ topic }}</li>
             {% endfor %}
         </ul>
+         </li>
     {% else %}
-        <p><b>No interested topics!</b></p>
+        <li class="list-group-item"><b>No interested topics!</b></li>
     {% endif %}
+
+    </ul>
 {% else %}
 <strong>You are not a registered student!</strong>
 {% endif %}
 </div>
-<div class="col-md-4">
+<div class="col-md-1"></div>
+<div class="col-md-4 student">
 {% if student_obj %}
     {% if student_obj.image %}
-       <img src="{{ student_obj.image.url }}" class="photo">
+       <img src="{{ student_obj.image.url }}" class="photo rounded-corners">
      {% else %}
-        <p><b>No image uploaded!</b></p>
+         <img src="/static/myapp/no photo.png" class="photo rounded-corners">
     {% endif %}
   {% endif %}
 </div>

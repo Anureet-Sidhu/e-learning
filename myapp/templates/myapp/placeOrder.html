@@ -3,18 +3,34 @@
     Order!
 {% endblock %}
 {% block body_block %}
+     <div class="row">
+    <div class="col-md-2">
+        <img src="../static/myapp/course.png" class="loginIcon topicIcon order">
+    </div>
+   <div class="col-md-5">
     {% if courlist %}
-<h2>List of Courses</h2>
-    <ol>
+<h2 class="centerText">List of Courses</h2>
+    <ol class="list-group list-group-flush centerText">
+ <div class="row">
 {% for course in courlist %}
-    <li>{{ course.name }}</li>
+    {% if course.id|divisibleby:"2" %}
+        <div class="col-md-6">
+    <li class="list-group-item">{{ course.name }}</li>
+     </div>
+         {% else %}
+        <div class="col-md-5">
+         <li class="list-group-item">{{ course.name }}</li>
+        </div>
+    {% endif %}
         {% endfor %}
+ </div>
     </ol>
  {% else %}
 <strong>There are no available courses!</strong>
 {% endif %}
-    <div class="row">
-        <div class="col-md-1"></div>
+   </div>
+       <div class="col-md-3">
+           <h2 class="centerText">Place Order</h2>
 <form method="post">
   {% csrf_token %}
   <table border="1">
@@ -22,6 +38,7 @@
   </table>
  <div class="text-center">
      <button class="btn btn-primary" type="submit">Submit</button></div>
-    </div>
-</form>
+    </form>
+       </div></div>
+
 {% endblock %}

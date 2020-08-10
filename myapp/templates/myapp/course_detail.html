@@ -4,19 +4,28 @@
 {% endblock %}
 {% block body_block %}
     {{ msg }}
+     <div class="row">
+    <div class="col-md-3">
+        <img src="/static/myapp/book.png" class="loginIcon topicIcon courseIcon">
+    </div>
+   <div class="col-md-4">
 {% if course %}
-    <p>Name of this course is: {{ course.name }}</p>
-    <p>Total no of people interested in this course are: {{ course.interested }}</p>
-    <p>Price of this course is: ${{ course.price }}</p>
+    <h2 class="centerText">Details</h2>
+    <ul class="list-group list-group-flush centerText">
+    <li class="list-group-item">Name of this course is: {{ course.name }}</li>
+    <li class="list-group-item">Total no of people interested in this course are: {{ course.interested }}</li>
+    <li class="list-group-item">Price of this course is: ${{ course.price }}</li>
+     <li class="list-group-item">
     {% if course.for_everyone == False %}
         <p>This course is not for everyone!</p>
-    {% endif %}
+    {% endif %}</li>
+    </ul>
  {% else %}
-<strong>No such course available!</strong>
+   <strong>No such course available!</strong>
 {% endif %}
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-4">
+   </div>
+    <div class="col-md-3">
+         <h2 class="centerText">Modify interest</h2>
 <form method="post">
   {% csrf_token %}
   <table border="1">
@@ -24,7 +33,7 @@
   </table>
      <div class="text-center">
          <button class="btn btn-primary" type="submit">Submit</button></div>
+</form>
 </div>
     </div>
-</form>
 {% endblock %}

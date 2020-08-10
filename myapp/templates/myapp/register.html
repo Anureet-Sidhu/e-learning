@@ -3,10 +3,13 @@
     Register!
 {% endblock %}
 {% block body_block %}
-    <div class="row">
-    <div class="col-md-1"></div>
+   <div class="row">
+<div class="col-md-3">
+    <img src="/static/myapp/new.png" class="loginIcon topicIcon courseIcon">
+</div>
+       <div class="col-md-1"></div>
             <div class="col-md-4">
-                <h1>Register New Student:</h1>
+                <h2>Register New Student:</h2>
                 <p class="error">{{ msg }}</p>
 <form method="post" enctype='multipart/form-data'>
   {% csrf_token %}
