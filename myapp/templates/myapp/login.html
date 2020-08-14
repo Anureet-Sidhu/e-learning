@@ -21,6 +21,10 @@
                     <td><input id="id_password" name="password"
                                type="password" class="form-control"></td>
                 </tr>
+                <tr>
+                    <td colspan="2"><center><a href="{% url 'password_reset' %}"
+                                       class="form-control">Forgot Password</a></center></td>
+                </tr>
             </table>
             {% if form.errors %}
                 <p class=" label label-danger">
