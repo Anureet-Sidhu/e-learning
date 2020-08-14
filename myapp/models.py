@@ -1,9 +1,7 @@
 import decimal
 
-from django.db import models
-import datetime
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
-from django.utils import timezone
 from django.db import models
 
 
@@ -18,7 +16,8 @@ class Topic(models.Model):
 class Course(models.Model):
     topic = models.ForeignKey(Topic, related_name='courses', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(100.00,  message= 'Price must be greater than 100.00 !!'),
+                                                                             MaxValueValidator(200.00,   message= 'Price must be less than 200.00 !!')])
     for_everyone = models.BooleanField(default=True)
     description = models.TextField(max_length=300, null=True, blank=True)
     interested = models.PositiveIntegerField(default=0)
@@ -49,7 +48,8 @@ class Order(models.Model):
     ORDER_CHOICES = [(0, 'Cancelled'),
                      (1, 'Order Confirmed')]
     order_status = models.IntegerField(choices=ORDER_CHOICES, default=1)
-    levels = models.PositiveIntegerField(default=1)
+    levels = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1, message= 'Level must be 1 or greater !!'),
+                                                                MaxValueValidator(10, message= 'Max 10 level are allowed !!')])
     order_date = models.DateField()
 
     def __str__(self): return str(self.course.name + ' by ' + self.student.first_name + self.student.last_name)
